@@ -1,17 +1,40 @@
 {
-    "buildNpmdoc":"live-server",
+    "author": "kai zhu <kaizhu256@gmail.com>",
+    "buildNpmdoc": "live-server",
+    "description": "api documentation for [live-server (v1.2.0)](https://github.com/tapio/live-server#readme) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-live-server.svg)](https://travis-ci.org/npmdoc/node-npmdoc-live-server)",
     "devDependencies": {
-        "live-server": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
+        "live-server": "*",
         "utility2": "kaizhu256/node-utility2#alpha"
     },
-    "name":"npmdoc-live-server",
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/npmdoc/node-npmdoc-live-server",
+    "keywords": [
+        "documentation",
+        "live-server"
+    ],
+    "license": "MIT",
+    "main": "lib.npmdoc_live_server.js",
+    "name": "npmdoc-live-server",
+    "nameAlias": "npmdoc_live_server",
+    "nameOriginal": "npmdoc-live-server",
+    "os": [
+        "darwin",
+        "linux"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/npmdoc/node-npmdoc-live-server.git"
     },
     "scripts": {
-        "build-ci": "utility2 shReadmeTest build_ci.sh"
+        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "env": "env",
+        "heroku-postbuild": "(set -e; npm install \"kaizhu256/node-utility2#alpha\"; utility2 shDeployHeroku)",
+        "postinstall": "if [ -f npm_scripts.sh ]; then ./npm_scripts.sh postinstall; fi",
+        "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
+        "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
-    "version": "0.0.1"
+    "version": "0.0.2"
 }
