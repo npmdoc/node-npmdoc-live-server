@@ -1,11 +1,13 @@
-# api documentation for  [live-server (v1.2.0)](https://github.com/tapio/live-server#readme)  [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-live-server.svg)](https://travis-ci.org/npmdoc/node-npmdoc-live-server)
+# api documentation for  [live-server (v1.2.0)](https://github.com/tapio/live-server#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-live-server.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-live-server) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-live-server.svg)](https://travis-ci.org/npmdoc/node-npmdoc-live-server)
 #### simple development http server with live reload capability
 
 [![NPM](https://nodei.co/npm/live-server.png?downloads=true)](https://www.npmjs.com/package/live-server)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-live-server/build/screen-capture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-live_server_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-live-server/build..beta..travis-ci.org/apidoc.html)
+[![apidoc](https://npmdoc.github.io/node-npmdoc-live-server/build/screenCapture.buildNpmdoc.browser.%2Fhome%2Ftravis%2Fbuild%2Fnpmdoc%2Fnode-npmdoc-live-server%2Ftmp%2Fbuild%2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-live-server/build/apidoc.html)
 
-![package-listing](https://npmdoc.github.io/node-npmdoc-live-server/build/screen-capture.npmPackageListing.svg)
+![npmPackageListing](https://npmdoc.github.io/node-npmdoc-live-server/build/screenCapture.npmPackageListing.svg)
+
+![npmPackageDependencyTree](https://npmdoc.github.io/node-npmdoc-live-server/build/screenCapture.npmPackageDependencyTree.svg)
 
 
 
@@ -111,6 +113,34 @@
 1.  number <span class="apidocSignatureSpan">live-server.</span>logLevel
 1.  object <span class="apidocSignatureSpan">live-server.</span>server
 1.  object <span class="apidocSignatureSpan">live-server.</span>watcher
+1.  object <span class="apidocSignatureSpan">live-server.</span>watcher._events
+
+#### [module live-server.watcher](#apidoc.module.live-server.watcher)
+1.  boolean <span class="apidocSignatureSpan">live-server.watcher.</span>closed
+1.  boolean <span class="apidocSignatureSpan">live-server.watcher.</span>enableBinaryInterval
+1.  [function <span class="apidocSignatureSpan">live-server.watcher.</span>_emitReady ()](#apidoc.element.live-server.watcher._emitReady)
+1.  [function <span class="apidocSignatureSpan">live-server.watcher.</span>_isntIgnored ()](#apidoc.element.live-server.watcher._isntIgnored)
+1.  [function <span class="apidocSignatureSpan">live-server.watcher.</span>_userIgnored ()](#apidoc.element.live-server.watcher._userIgnored)
+1.  number <span class="apidocSignatureSpan">live-server.watcher.</span>_eventsCount
+1.  number <span class="apidocSignatureSpan">live-server.watcher.</span>_readyCount
+1.  object <span class="apidocSignatureSpan">live-server.watcher.</span>_closers
+1.  object <span class="apidocSignatureSpan">live-server.watcher.</span>_events
+1.  object <span class="apidocSignatureSpan">live-server.watcher.</span>_ignoredPaths
+1.  object <span class="apidocSignatureSpan">live-server.watcher.</span>_pendingUnlinks
+1.  object <span class="apidocSignatureSpan">live-server.watcher.</span>_symlinkPaths
+1.  object <span class="apidocSignatureSpan">live-server.watcher.</span>_throttled
+1.  object <span class="apidocSignatureSpan">live-server.watcher.</span>_watched
+1.  object <span class="apidocSignatureSpan">live-server.watcher.</span>domain
+1.  object <span class="apidocSignatureSpan">live-server.watcher.</span>options
+
+#### [module live-server.watcher._events](#apidoc.module.live-server.watcher._events)
+1.  [function <span class="apidocSignatureSpan">live-server.watcher._events.</span>add (changePath)](#apidoc.element.live-server.watcher._events.add)
+1.  [function <span class="apidocSignatureSpan">live-server.watcher._events.</span>addDir (changePath)](#apidoc.element.live-server.watcher._events.addDir)
+1.  [function <span class="apidocSignatureSpan">live-server.watcher._events.</span>change (changePath)](#apidoc.element.live-server.watcher._events.change)
+1.  [function <span class="apidocSignatureSpan">live-server.watcher._events.</span>error (err)](#apidoc.element.live-server.watcher._events.error)
+1.  [function <span class="apidocSignatureSpan">live-server.watcher._events.</span>ready ()](#apidoc.element.live-server.watcher._events.ready)
+1.  [function <span class="apidocSignatureSpan">live-server.watcher._events.</span>unlink (changePath)](#apidoc.element.live-server.watcher._events.unlink)
+1.  [function <span class="apidocSignatureSpan">live-server.watcher._events.</span>unlinkDir (changePath)](#apidoc.element.live-server.watcher._events.unlinkDir)
 
 
 
@@ -299,6 +329,190 @@ HTTPS
 In order to enable HTTPS support, you'll need to create a configuration module.
 The module must export an object that will be used to configure a HTTPS server.
 ...
+```
+
+
+
+# <a name="apidoc.module.live-server.watcher"></a>[module live-server.watcher](#apidoc.module.live-server.watcher)
+
+#### <a name="apidoc.element.live-server.watcher._emitReady"></a>[function <span class="apidocSignatureSpan">live-server.watcher.</span>_emitReady ()](#apidoc.element.live-server.watcher._emitReady)
+- description and source-code
+```javascript
+_emitReady = function () { [native code] }
+```
+- example usage
+```shell
+n/a
+```
+
+#### <a name="apidoc.element.live-server.watcher._isntIgnored"></a>[function <span class="apidocSignatureSpan">live-server.watcher.</span>_isntIgnored ()](#apidoc.element.live-server.watcher._isntIgnored)
+- description and source-code
+```javascript
+_isntIgnored = function () { [native code] }
+```
+- example usage
+```shell
+n/a
+```
+
+#### <a name="apidoc.element.live-server.watcher._userIgnored"></a>[function <span class="apidocSignatureSpan">live-server.watcher.</span>_userIgnored ()](#apidoc.element.live-server.watcher._userIgnored)
+- description and source-code
+```javascript
+_userIgnored = function () { [native code] }
+```
+- example usage
+```shell
+n/a
+```
+
+
+
+# <a name="apidoc.module.live-server.watcher._events"></a>[module live-server.watcher._events](#apidoc.module.live-server.watcher._events)
+
+#### <a name="apidoc.element.live-server.watcher._events.add"></a>[function <span class="apidocSignatureSpan">live-server.watcher._events.</span>add (changePath)](#apidoc.element.live-server.watcher._events.add)
+- description and source-code
+```javascript
+function handleChange(changePath) {
+		var cssChange = path.extname(changePath) === ".css";
+		if (LiveServer.logLevel >= 1) {
+			if (cssChange)
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
+		}
+		clients.forEach(function(ws) {
+			if (ws)
+				ws.send(cssChange ? 'refreshcss' : 'reload');
+		});
+	}
+```
+- example usage
+```shell
+n/a
+```
+
+#### <a name="apidoc.element.live-server.watcher._events.addDir"></a>[function <span class="apidocSignatureSpan">live-server.watcher._events.</span>addDir (changePath)](#apidoc.element.live-server.watcher._events.addDir)
+- description and source-code
+```javascript
+function handleChange(changePath) {
+		var cssChange = path.extname(changePath) === ".css";
+		if (LiveServer.logLevel >= 1) {
+			if (cssChange)
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
+		}
+		clients.forEach(function(ws) {
+			if (ws)
+				ws.send(cssChange ? 'refreshcss' : 'reload');
+		});
+	}
+```
+- example usage
+```shell
+n/a
+```
+
+#### <a name="apidoc.element.live-server.watcher._events.change"></a>[function <span class="apidocSignatureSpan">live-server.watcher._events.</span>change (changePath)](#apidoc.element.live-server.watcher._events.change)
+- description and source-code
+```javascript
+function handleChange(changePath) {
+		var cssChange = path.extname(changePath) === ".css";
+		if (LiveServer.logLevel >= 1) {
+			if (cssChange)
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
+		}
+		clients.forEach(function(ws) {
+			if (ws)
+				ws.send(cssChange ? 'refreshcss' : 'reload');
+		});
+	}
+```
+- example usage
+```shell
+n/a
+```
+
+#### <a name="apidoc.element.live-server.watcher._events.error"></a>[function <span class="apidocSignatureSpan">live-server.watcher._events.</span>error (err)](#apidoc.element.live-server.watcher._events.error)
+- description and source-code
+```javascript
+error = function (err) {
+			console.log("ERROR:".red, err);
+		}
+```
+- example usage
+```shell
+...
+		if (e.code === 'EADDRINUSE') {
+			var serveURL = protocol + '://' + host + ':' + port;
+			console.log('%s is already in use. Trying another port.'.yellow, serveURL);
+			setTimeout(function() {
+				server.listen(0, host);
+			}, 1000);
+		} else {
+			console.error(e.toString().red);
+			LiveServer.shutdown();
+		}
+	});
+
+	// Handle successful server
+	server.addListener('listening', function(/*e*/) {
+		LiveServer.server = server;
+...
+```
+
+#### <a name="apidoc.element.live-server.watcher._events.ready"></a>[function <span class="apidocSignatureSpan">live-server.watcher._events.</span>ready ()](#apidoc.element.live-server.watcher._events.ready)
+- description and source-code
+```javascript
+ready = function () {
+			if (LiveServer.logLevel >= 1)
+				console.log("Ready for changes".cyan);
+		}
+```
+- example usage
+```shell
+n/a
+```
+
+#### <a name="apidoc.element.live-server.watcher._events.unlink"></a>[function <span class="apidocSignatureSpan">live-server.watcher._events.</span>unlink (changePath)](#apidoc.element.live-server.watcher._events.unlink)
+- description and source-code
+```javascript
+function handleChange(changePath) {
+		var cssChange = path.extname(changePath) === ".css";
+		if (LiveServer.logLevel >= 1) {
+			if (cssChange)
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
+		}
+		clients.forEach(function(ws) {
+			if (ws)
+				ws.send(cssChange ? 'refreshcss' : 'reload');
+		});
+	}
+```
+- example usage
+```shell
+n/a
+```
+
+#### <a name="apidoc.element.live-server.watcher._events.unlinkDir"></a>[function <span class="apidocSignatureSpan">live-server.watcher._events.</span>unlinkDir (changePath)](#apidoc.element.live-server.watcher._events.unlinkDir)
+- description and source-code
+```javascript
+function handleChange(changePath) {
+		var cssChange = path.extname(changePath) === ".css";
+		if (LiveServer.logLevel >= 1) {
+			if (cssChange)
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
+		}
+		clients.forEach(function(ws) {
+			if (ws)
+				ws.send(cssChange ? 'refreshcss' : 'reload');
+		});
+	}
+```
+- example usage
+```shell
+n/a
 ```
 
 
