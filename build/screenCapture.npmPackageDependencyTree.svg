@@ -10,7 +10,7 @@
 <tspan x="10" y="122">  │ │ ├── arrify@1.0.1 </tspan>
 <tspan x="10" y="138">  │ │ └─┬ micromatch@2.3.11 </tspan>
 <tspan x="10" y="154">  │ │   ├─┬ arr-diff@2.0.0 </tspan>
-<tspan x="10" y="170">  │ │   │ └── arr-flatten@1.0.1 </tspan>
+<tspan x="10" y="170">  │ │   │ └── arr-flatten@1.0.3 </tspan>
 <tspan x="10" y="186">  │ │   ├── array-unique@0.2.1 </tspan>
 <tspan x="10" y="202">  │ │   ├─┬ braces@1.8.5 </tspan>
 <tspan x="10" y="218">  │ │   │ ├─┬ expand-range@1.8.2 </tspan>
@@ -53,7 +53,7 @@
 <tspan x="10" y="810">  │   │ └─┬ brace-expansion@1.1.7 </tspan>
 <tspan x="10" y="826">  │   │   ├── balanced-match@0.4.2 </tspan>
 <tspan x="10" y="842">  │   │   └── concat-map@0.0.1 </tspan>
-<tspan x="10" y="858">  │   ├─┬ readable-stream@2.2.8 </tspan>
+<tspan x="10" y="858">  │   ├─┬ readable-stream@2.2.9 </tspan>
 <tspan x="10" y="874">  │   │ ├── buffer-shims@1.0.0 </tspan>
 <tspan x="10" y="890">  │   │ ├── core-util-is@1.0.2 </tspan>
 <tspan x="10" y="906">  │   │ ├── isarray@1.0.0 </tspan>

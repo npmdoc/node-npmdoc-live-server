@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/tapio/live-server#readme"
-
-    >live-server (v1.2.0)</a>
+    <a href="https://github.com/tapio/live-server#readme">live-server (v1.2.0)</a>
 </h1>
 <h4>simple development http server with live reload capability</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.live-server">module live-server</a><ol>
 
@@ -379,14 +372,14 @@
     <ul>
     <li>description and source-code<pre class="apidocCodePre">start = function (options) {
 	options = options || {};
-	var host = options.host || &#x27;0.0.0.0&#x27;;
+	var host = options.host || '0.0.0.0';
 	var port = options.port !== undefined ? options.port : 8080; // 0 means random
 	var root = options.root || process.cwd();
 	var mount = options.mount || [];
 	var watchPaths = options.watch || [root];
 	LiveServer.logLevel = options.logLevel === undefined ? 2 : options.logLevel;
 	var openPath = (options.open === undefined || options.open === true) ?
-		&#x22;&#x22; : ((options.open === null || options.open === false) ? null : options.open);
+		"" : ((options.open === null || options.open === false) ? null : options.open);
 	if (options.noBrowser) openPath = null; // Backwards compatibility with 0.7.0
 	var file = options.file;
 	var staticServerHandler = staticServer(root);
@@ -403,22 +396,22 @@
 
 	// Add logger. Level 2 logs only errors
 	if (LiveServer.logLevel === 2) {
-		app.use(logger(&#x27;dev&#x27;, {
-			skip: function (req, res) { return res.statusCode &#x3c; 400; }
+		app.use(logger('dev', {
+			skip: function (req, res) { return res.statusCode &lt; 400; }
 		}));
 	// Level 2 or above logs all requests
-	} else if (LiveServer.logLevel &#x3e; 2) {
-		app.use(logger(&#x27;dev&#x27;));
+	} else if (LiveServer.logLevel &gt; 2) {
+		app.use(logger('dev'));
 	}
 	if (options.spa) {
-		middleware.push(&#x22;spa&#x22;);
+		middleware.push("spa");
 	}
 	// Add middleware
 	middleware.map(function(mw) {
-		if (typeof mw === &#x22;string&#x22;) {
+		if (typeof mw === "string") {
 			var ext = path.extname(mw).toLocaleLowerCase();
-			if (ext !== &#x22;.js&#x22;) {
-				mw = require(path.join(__dirname, &#x22;middleware&#x22;, mw + &#x22;.js&#x22;));
+			if (ext !== ".js") {
+				mw = require(path.join(__dirname, "middleware", mw + ".js"));
 			} else {
 				mw = require(mw);
 			}
@@ -428,15 +421,15 @@
 
 	// Use http-auth if configured
 	if (htpasswd !== null) {
-		var auth = require(&#x27;http-auth&#x27;);
+		var auth = require('http-auth');
 		var basic = auth.basic({
-			realm: &#x22;Please authorize&#x22;,
+			realm: "Please authorize",
 			file: htpasswd
 		});
 		app.use(auth.connect(basic));
 	}
 	if (cors) {
-		app.use(require(&#x22;cors&#x22;)({
+		app.use(require("cors")({
 			origin: true, // reflecting request origin
 			credentials: true // allowing requests with credentials
 		}));
@@ -446,16 +439,16 @@
 		if (!options.watch) // Auto add mount paths to wathing but only if exclusive path option is not given
 			watchPaths.push(mountPath);
 		app.use(mountRule[0], staticServer(mountPath));
-		if (LiveServer.logLevel &#x3e;= 1)
-			console.log(&#x27;Mapping %s to &#x22;%s&#x22;&#x27;, mountRule[0], mountPath);
+		if (LiveServer.logLevel &gt;= 1)
+			console.log('Mapping %s to "%s"', mountRule[0], mountPath);
 	});
 	proxy.forEach(function(proxyRule) {
 		var proxyOpts = url.parse(proxyRule[1]);
 		proxyOpts.via = true;
 		proxyOpts.preserveHost = true;
-		app.use(proxyRule[0], require(&#x27;proxy-middleware&#x27;)(proxyOpts));
-		if (LiveServer.logLevel &#x3e;= 1)
-			console.log(&#x27;Mapping %s to &#x22;%s&#x22;&#x27;, proxyRule[0], proxyRule[1]);
+		app.use(proxyRule[0], require('proxy-middleware')(proxyOpts));
+		if (LiveServer.logLevel &gt;= 1)
+			console.log('Mapping %s to "%s"', proxyRule[0], proxyRule[1]);
 	});
 	app.use(staticServerHandler) // Custom static server
 		.use(entryPoint(staticServerHandler, file))
@@ -464,21 +457,21 @@
 	var server, protocol;
 	if (https !== null) {
 		var httpsConfig = https;
-		if (typeof https === &#x22;string&#x22;) {
+		if (typeof https === "string") {
 			httpsConfig = require(path.resolve(process.cwd(), https));
 		}
-		server = require(&#x22;https&#x22;).createServer(httpsConfig, app);
-		protocol = &#x22;https&#x22;;
+		server = require("https").createServer(httpsConfig, app);
+		protocol = "https";
 	} else {
 		server = http.createServer(app);
-		protocol = &#x22;http&#x22;;
+		protocol = "http";
 	}
 
 	// Handle server startup errors
-	server.addListener(&#x27;error&#x27;, function(e) {
-		if (e.code === &#x27;EADDRINUSE&#x27;) {
-			var serveURL = protocol + &#x27;://&#x27; + host + &#x27;:&#x27; + port;
-			console.log(&#x27;%s is already in use. Trying another port.&#x27;.yellow, serveURL);
+	server.addListener('error', function(e) {
+		if (e.code === 'EADDRINUSE') {
+			var serveURL = protocol + '://' + host + ':' + port;
+			console.log('%s is already in use. Trying another port.'.yellow, serveURL);
 			setTimeout(function() {
 				server.listen(0, host);
 			}, 1000);
@@ -489,24 +482,24 @@
 	});
 
 	// Handle successful server
-	server.addListener(&#x27;listening&#x27;, function(/*e*/) {
+	server.addListener('listening', function(/*e*/) {
 		LiveServer.server = server;
 
 		var address = server.address();
-		var serveHost = address.address === &#x22;0.0.0.0&#x22; ? &#x22;127.0.0.1&#x22; : address.address;
-		var openHost = host === &#x22;0.0.0.0&#x22; ? &#x22;127.0.0.1&#x22; : host;
+		var serveHost = address.address === "0.0.0.0" ? "127.0.0.1" : address.address;
+		var openHost = host === "0.0.0.0" ? "127.0.0.1" : host;
 
-		var serveURL = protocol + &#x27;://&#x27; + serveHost + &#x27;:&#x27; + address.port;
-		var openURL = protocol + &#x27;://&#x27; + openHost + &#x27;:&#x27; + address.port;
+		var serveURL = protocol + '://' + serveHost + ':' + address.port;
+		var openURL = protocol + '://' + openHost + ':' + address.port;
 
 		var serveURLs = [ serveURL ];
-		if (LiveServer.logLevel &#x3e; 2 &#x26;&#x26; address.address === &#x22;0.0.0.0&#x22;) {
+		if (LiveServer.logLevel &gt; 2 &amp;&amp; address.address === "0.0.0.0") {
 			var ifaces = os.networkInterfaces() ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-	ignore: &#x27;scss,my/templates&#x27;, // comma-separated string for paths to ignore
-	file: &#x22;index.html&#x22;, // When set, serve this file for every 404 (useful for single-page applications)
+	ignore: 'scss,my/templates', // comma-separated string for paths to ignore
+	file: "index.html", // When set, serve this file for every 404 (useful for single-page applications)
 	wait: 1000, // Waits for all changes, before reloading. Defaults to 0 sec.
-	mount: [[&#x27;/components&#x27;, &#x27;./node_modules&#x27;]], // Mount a directory to a route.
+	mount: [['/components', './node_modules']], // Mount a directory to a route.
 	logLevel: 2, // 0 = errors only, 1 = some, 2 = lots
 	middleware: [function(req, res, next) { next(); }] // Takes an array of Connect-compatible middleware that are injected into the
  server middleware stack
@@ -517,7 +510,7 @@ liveServer.<span class="apidocCodeKeywordSpan">start</span>(params);
 HTTPS
 ---------------
 
-In order to enable HTTPS support, you&#x27;ll need to create a configuration module.
+In order to enable HTTPS support, you'll need to create a configuration module.
 The module must export an object that will be used to configure a HTTPS server.
 ...</pre></li>
     </ul>
@@ -585,14 +578,14 @@ The module must export an object that will be used to configure a HTTPS server.
     <ul>
     <li>description and source-code<pre class="apidocCodePre">start = function (options) {
 	options = options || {};
-	var host = options.host || &#x27;0.0.0.0&#x27;;
+	var host = options.host || '0.0.0.0';
 	var port = options.port !== undefined ? options.port : 8080; // 0 means random
 	var root = options.root || process.cwd();
 	var mount = options.mount || [];
 	var watchPaths = options.watch || [root];
 	LiveServer.logLevel = options.logLevel === undefined ? 2 : options.logLevel;
 	var openPath = (options.open === undefined || options.open === true) ?
-		&#x22;&#x22; : ((options.open === null || options.open === false) ? null : options.open);
+		"" : ((options.open === null || options.open === false) ? null : options.open);
 	if (options.noBrowser) openPath = null; // Backwards compatibility with 0.7.0
 	var file = options.file;
 	var staticServerHandler = staticServer(root);
@@ -609,22 +602,22 @@ The module must export an object that will be used to configure a HTTPS server.
 
 	// Add logger. Level 2 logs only errors
 	if (LiveServer.logLevel === 2) {
-		app.use(logger(&#x27;dev&#x27;, {
-			skip: function (req, res) { return res.statusCode &#x3c; 400; }
+		app.use(logger('dev', {
+			skip: function (req, res) { return res.statusCode &lt; 400; }
 		}));
 	// Level 2 or above logs all requests
-	} else if (LiveServer.logLevel &#x3e; 2) {
-		app.use(logger(&#x27;dev&#x27;));
+	} else if (LiveServer.logLevel &gt; 2) {
+		app.use(logger('dev'));
 	}
 	if (options.spa) {
-		middleware.push(&#x22;spa&#x22;);
+		middleware.push("spa");
 	}
 	// Add middleware
 	middleware.map(function(mw) {
-		if (typeof mw === &#x22;string&#x22;) {
+		if (typeof mw === "string") {
 			var ext = path.extname(mw).toLocaleLowerCase();
-			if (ext !== &#x22;.js&#x22;) {
-				mw = require(path.join(__dirname, &#x22;middleware&#x22;, mw + &#x22;.js&#x22;));
+			if (ext !== ".js") {
+				mw = require(path.join(__dirname, "middleware", mw + ".js"));
 			} else {
 				mw = require(mw);
 			}
@@ -634,15 +627,15 @@ The module must export an object that will be used to configure a HTTPS server.
 
 	// Use http-auth if configured
 	if (htpasswd !== null) {
-		var auth = require(&#x27;http-auth&#x27;);
+		var auth = require('http-auth');
 		var basic = auth.basic({
-			realm: &#x22;Please authorize&#x22;,
+			realm: "Please authorize",
 			file: htpasswd
 		});
 		app.use(auth.connect(basic));
 	}
 	if (cors) {
-		app.use(require(&#x22;cors&#x22;)({
+		app.use(require("cors")({
 			origin: true, // reflecting request origin
 			credentials: true // allowing requests with credentials
 		}));
@@ -652,16 +645,16 @@ The module must export an object that will be used to configure a HTTPS server.
 		if (!options.watch) // Auto add mount paths to wathing but only if exclusive path option is not given
 			watchPaths.push(mountPath);
 		app.use(mountRule[0], staticServer(mountPath));
-		if (LiveServer.logLevel &#x3e;= 1)
-			console.log(&#x27;Mapping %s to &#x22;%s&#x22;&#x27;, mountRule[0], mountPath);
+		if (LiveServer.logLevel &gt;= 1)
+			console.log('Mapping %s to "%s"', mountRule[0], mountPath);
 	});
 	proxy.forEach(function(proxyRule) {
 		var proxyOpts = url.parse(proxyRule[1]);
 		proxyOpts.via = true;
 		proxyOpts.preserveHost = true;
-		app.use(proxyRule[0], require(&#x27;proxy-middleware&#x27;)(proxyOpts));
-		if (LiveServer.logLevel &#x3e;= 1)
-			console.log(&#x27;Mapping %s to &#x22;%s&#x22;&#x27;, proxyRule[0], proxyRule[1]);
+		app.use(proxyRule[0], require('proxy-middleware')(proxyOpts));
+		if (LiveServer.logLevel &gt;= 1)
+			console.log('Mapping %s to "%s"', proxyRule[0], proxyRule[1]);
 	});
 	app.use(staticServerHandler) // Custom static server
 		.use(entryPoint(staticServerHandler, file))
@@ -670,21 +663,21 @@ The module must export an object that will be used to configure a HTTPS server.
 	var server, protocol;
 	if (https !== null) {
 		var httpsConfig = https;
-		if (typeof https === &#x22;string&#x22;) {
+		if (typeof https === "string") {
 			httpsConfig = require(path.resolve(process.cwd(), https));
 		}
-		server = require(&#x22;https&#x22;).createServer(httpsConfig, app);
-		protocol = &#x22;https&#x22;;
+		server = require("https").createServer(httpsConfig, app);
+		protocol = "https";
 	} else {
 		server = http.createServer(app);
-		protocol = &#x22;http&#x22;;
+		protocol = "http";
 	}
 
 	// Handle server startup errors
-	server.addListener(&#x27;error&#x27;, function(e) {
-		if (e.code === &#x27;EADDRINUSE&#x27;) {
-			var serveURL = protocol + &#x27;://&#x27; + host + &#x27;:&#x27; + port;
-			console.log(&#x27;%s is already in use. Trying another port.&#x27;.yellow, serveURL);
+	server.addListener('error', function(e) {
+		if (e.code === 'EADDRINUSE') {
+			var serveURL = protocol + '://' + host + ':' + port;
+			console.log('%s is already in use. Trying another port.'.yellow, serveURL);
 			setTimeout(function() {
 				server.listen(0, host);
 			}, 1000);
@@ -695,24 +688,24 @@ The module must export an object that will be used to configure a HTTPS server.
 	});
 
 	// Handle successful server
-	server.addListener(&#x27;listening&#x27;, function(/*e*/) {
+	server.addListener('listening', function(/*e*/) {
 		LiveServer.server = server;
 
 		var address = server.address();
-		var serveHost = address.address === &#x22;0.0.0.0&#x22; ? &#x22;127.0.0.1&#x22; : address.address;
-		var openHost = host === &#x22;0.0.0.0&#x22; ? &#x22;127.0.0.1&#x22; : host;
+		var serveHost = address.address === "0.0.0.0" ? "127.0.0.1" : address.address;
+		var openHost = host === "0.0.0.0" ? "127.0.0.1" : host;
 
-		var serveURL = protocol + &#x27;://&#x27; + serveHost + &#x27;:&#x27; + address.port;
-		var openURL = protocol + &#x27;://&#x27; + openHost + &#x27;:&#x27; + address.port;
+		var serveURL = protocol + '://' + serveHost + ':' + address.port;
+		var openURL = protocol + '://' + openHost + ':' + address.port;
 
 		var serveURLs = [ serveURL ];
-		if (LiveServer.logLevel &#x3e; 2 &#x26;&#x26; address.address === &#x22;0.0.0.0&#x22;) {
+		if (LiveServer.logLevel &gt; 2 &amp;&amp; address.address === "0.0.0.0") {
 			var ifaces = os.networkInterfaces() ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-	ignore: &#x27;scss,my/templates&#x27;, // comma-separated string for paths to ignore
-	file: &#x22;index.html&#x22;, // When set, serve this file for every 404 (useful for single-page applications)
+	ignore: 'scss,my/templates', // comma-separated string for paths to ignore
+	file: "index.html", // When set, serve this file for every 404 (useful for single-page applications)
 	wait: 1000, // Waits for all changes, before reloading. Defaults to 0 sec.
-	mount: [[&#x27;/components&#x27;, &#x27;./node_modules&#x27;]], // Mount a directory to a route.
+	mount: [['/components', './node_modules']], // Mount a directory to a route.
 	logLevel: 2, // 0 = errors only, 1 = some, 2 = lots
 	middleware: [function(req, res, next) { next(); }] // Takes an array of Connect-compatible middleware that are injected into the
  server middleware stack
@@ -723,7 +716,7 @@ liveServer.<span class="apidocCodeKeywordSpan">start</span>(params);
 HTTPS
 ---------------
 
-In order to enable HTTPS support, you&#x27;ll need to create a configuration module.
+In order to enable HTTPS support, you'll need to create a configuration module.
 The module must export an object that will be used to configure a HTTPS server.
 ...</pre></li>
     </ul>
@@ -819,15 +812,15 @@ The module must export an object that will be used to configure a HTTPS server.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function handleChange(changePath) {
-		var cssChange = path.extname(changePath) === &#x22;.css&#x22;;
-		if (LiveServer.logLevel &#x3e;= 1) {
+		var cssChange = path.extname(changePath) === ".css";
+		if (LiveServer.logLevel &gt;= 1) {
 			if (cssChange)
-				console.log(&#x22;CSS change detected&#x22;.magenta, changePath);
-			else console.log(&#x22;Change detected&#x22;.cyan, changePath);
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
 		}
 		clients.forEach(function(ws) {
 			if (ws)
-				ws.send(cssChange ? &#x27;refreshcss&#x27; : &#x27;reload&#x27;);
+				ws.send(cssChange ? 'refreshcss' : 'reload');
 		});
 	}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -843,15 +836,15 @@ The module must export an object that will be used to configure a HTTPS server.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function handleChange(changePath) {
-		var cssChange = path.extname(changePath) === &#x22;.css&#x22;;
-		if (LiveServer.logLevel &#x3e;= 1) {
+		var cssChange = path.extname(changePath) === ".css";
+		if (LiveServer.logLevel &gt;= 1) {
 			if (cssChange)
-				console.log(&#x22;CSS change detected&#x22;.magenta, changePath);
-			else console.log(&#x22;Change detected&#x22;.cyan, changePath);
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
 		}
 		clients.forEach(function(ws) {
 			if (ws)
-				ws.send(cssChange ? &#x27;refreshcss&#x27; : &#x27;reload&#x27;);
+				ws.send(cssChange ? 'refreshcss' : 'reload');
 		});
 	}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -867,15 +860,15 @@ The module must export an object that will be used to configure a HTTPS server.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function handleChange(changePath) {
-		var cssChange = path.extname(changePath) === &#x22;.css&#x22;;
-		if (LiveServer.logLevel &#x3e;= 1) {
+		var cssChange = path.extname(changePath) === ".css";
+		if (LiveServer.logLevel &gt;= 1) {
 			if (cssChange)
-				console.log(&#x22;CSS change detected&#x22;.magenta, changePath);
-			else console.log(&#x22;Change detected&#x22;.cyan, changePath);
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
 		}
 		clients.forEach(function(ws) {
 			if (ws)
-				ws.send(cssChange ? &#x27;refreshcss&#x27; : &#x27;reload&#x27;);
+				ws.send(cssChange ? 'refreshcss' : 'reload');
 		});
 	}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -891,12 +884,12 @@ The module must export an object that will be used to configure a HTTPS server.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">error = function (err) {
-			console.log(&#x22;ERROR:&#x22;.red, err);
+			console.log("ERROR:".red, err);
 		}</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-		if (e.code === &#x27;EADDRINUSE&#x27;) {
-			var serveURL = protocol + &#x27;://&#x27; + host + &#x27;:&#x27; + port;
-			console.log(&#x27;%s is already in use. Trying another port.&#x27;.yellow, serveURL);
+		if (e.code === 'EADDRINUSE') {
+			var serveURL = protocol + '://' + host + ':' + port;
+			console.log('%s is already in use. Trying another port.'.yellow, serveURL);
 			setTimeout(function() {
 				server.listen(0, host);
 			}, 1000);
@@ -907,7 +900,7 @@ The module must export an object that will be used to configure a HTTPS server.
 	});
 
 	// Handle successful server
-	server.addListener(&#x27;listening&#x27;, function(/*e*/) {
+	server.addListener('listening', function(/*e*/) {
 		LiveServer.server = server;
 ...</pre></li>
     </ul>
@@ -922,8 +915,8 @@ The module must export an object that will be used to configure a HTTPS server.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">ready = function () {
-			if (LiveServer.logLevel &#x3e;= 1)
-				console.log(&#x22;Ready for changes&#x22;.cyan);
+			if (LiveServer.logLevel &gt;= 1)
+				console.log("Ready for changes".cyan);
 		}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -938,15 +931,15 @@ The module must export an object that will be used to configure a HTTPS server.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function handleChange(changePath) {
-		var cssChange = path.extname(changePath) === &#x22;.css&#x22;;
-		if (LiveServer.logLevel &#x3e;= 1) {
+		var cssChange = path.extname(changePath) === ".css";
+		if (LiveServer.logLevel &gt;= 1) {
 			if (cssChange)
-				console.log(&#x22;CSS change detected&#x22;.magenta, changePath);
-			else console.log(&#x22;Change detected&#x22;.cyan, changePath);
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
 		}
 		clients.forEach(function(ws) {
 			if (ws)
-				ws.send(cssChange ? &#x27;refreshcss&#x27; : &#x27;reload&#x27;);
+				ws.send(cssChange ? 'refreshcss' : 'reload');
 		});
 	}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -962,15 +955,15 @@ The module must export an object that will be used to configure a HTTPS server.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function handleChange(changePath) {
-		var cssChange = path.extname(changePath) === &#x22;.css&#x22;;
-		if (LiveServer.logLevel &#x3e;= 1) {
+		var cssChange = path.extname(changePath) === ".css";
+		if (LiveServer.logLevel &gt;= 1) {
 			if (cssChange)
-				console.log(&#x22;CSS change detected&#x22;.magenta, changePath);
-			else console.log(&#x22;Change detected&#x22;.cyan, changePath);
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
 		}
 		clients.forEach(function(ws) {
 			if (ws)
-				ws.send(cssChange ? &#x27;refreshcss&#x27; : &#x27;reload&#x27;);
+				ws.send(cssChange ? 'refreshcss' : 'reload');
 		});
 	}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -985,3 +978,4 @@ The module must export an object that will be used to configure a HTTPS server.
     ]
 </div>
 </div>
+</body></html>
